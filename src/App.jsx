@@ -5,7 +5,7 @@ import './App.css'
 import { Configuration, OpenAIApi } from 'openai'
 
 function App() {
-  const apiKey = import.meta.env.VITE_OPEN_AI_KEY
+  const apiKey = process.env.VITE_OPEN_AI_KEY
   const [prompt, setPrompt] = useState('')
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState('')
