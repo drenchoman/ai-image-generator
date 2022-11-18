@@ -1,5 +1,5 @@
 # AI GENERATED ART
 
-Using (Open Api) to generate AI art.[https://openai.com/api/]
+Using [Open Api](https://openai.com/api/) to generate AI art.
 
 
