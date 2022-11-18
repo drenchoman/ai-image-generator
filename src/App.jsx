@@ -5,13 +5,14 @@ import './App.css'
 import { Configuration, OpenAIApi } from 'openai'
 
 function App() {
+  const apiKey = import.meta.env.VITE_OPEN_AI_KEY
   const [prompt, setPrompt] = useState('')
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState('')
   const [error, setError] = useState('')
 
   const configuration = new Configuration({
-    apiKey: import.meta.env.VITE_OPEN_AI_KEY,
+    apiKey,
   })
   const openai = new OpenAIApi(configuration)
   const generateImage = async () => {
