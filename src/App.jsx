@@ -14,6 +14,7 @@ function App() {
   const configuration = new Configuration({
     apiKey,
   })
+
   const openai = new OpenAIApi(configuration)
   const generateImage = async () => {
     if (prompt.length == 0) {
