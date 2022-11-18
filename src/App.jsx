@@ -8,12 +8,17 @@ function App() {
   const [prompt, setPrompt] = useState('')
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState('')
+  const [error, setError] = useState('')
 
   const configuration = new Configuration({
     apiKey: import.meta.env.VITE_OPEN_AI_KEY,
   })
   const openai = new OpenAIApi(configuration)
   const generateImage = async () => {
+    if (prompt.length == 0) {
+      setError('You need to give me a prompt!')
+      return
+    }
     try {
       setLoading(true)
       const res = await openai.createImage({
@@ -21,7 +26,6 @@ function App() {
         n: 1,
         size: '512x512',
       })
-      console.log(res.data)
       setResult(res.data.data[0].url)
     } catch (err) {
       console.log(err)
@@ -30,16 +34,22 @@ function App() {
     }
   }
 
+  const handleChange = (e) => {
+    setPrompt(e.target.value)
+    setError('')
+  }
+
   return (
     <div className="App">
       <h2>AI Image Generator</h2>
       <textarea
         className="app-input"
         placeholder="Oscar the Grouch Surfing on Frozen Lake"
-        onChange={(e) => setPrompt(e.target.value)}
+        onChange={(e) => handleChange(e)}
         rows="10"
         cols="40"
       />
+      {error && <span className="error">{error}</span>}
       <button disabled={loading} onClick={generateImage}>
         Generate an Image
       </button>
