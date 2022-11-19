@@ -6,7 +6,7 @@ import { Configuration, OpenAIApi } from 'openai'
 
 function App() {
   let apiKey
-  if (import.meta.env.NODE == 'development') {
+  if (import.meta.env.MODE == 'development') {
     apiKey = import.meta.env.VITE_OPEN_AI_KEY
   } else {
     apiKey = process.env.VITE_OPEN_AI_KEY
@@ -27,6 +27,7 @@ function App() {
       return
     }
     try {
+      setResult('')
       setLoading(true)
       const res = await openai.createImage({
         prompt: prompt,
@@ -51,7 +52,7 @@ function App() {
       <h2>AI Image Generator</h2>
       <textarea
         className="app-input"
-        placeholder="Oscar the Grouch Surfing on Frozen Lake"
+        placeholder="Oscar the Grouch Surfing Frozen Lake Van Gogh"
         onChange={(e) => handleChange(e)}
         rows="10"
         cols="40"
