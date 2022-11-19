@@ -17,24 +17,38 @@ function App() {
   const [error, setError] = useState('')
 
   const configuration = new Configuration({
-    apiKey: apiKey,
+    apiKey: process.env.OPENAI_API_KEY,
   })
-
   const openai = new OpenAIApi(configuration)
+
   const generateImage = async () => {
+    setResult('')
     if (prompt.length == 0) {
       setError('You need to give me a prompt!')
       return
     }
     try {
-      setResult('')
       setLoading(true)
-      const res = await openai.createImage({
-        prompt: prompt,
-        n: 1,
-        size: '512x512',
-      })
-      setResult(res.data.data[0].url)
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + String(apiKey)
+        },
+        body: JSON.stringify({
+          'prompt': prompt,
+          'n': 1,
+          'size': '512x512',
+          
+        })
+      };
+
+      const response = await fetch(
+        'https://api.openai.com/v1/images/generations',
+        requestOptions
+      )
+      const data = await response.json()
+      setResult(data.data[0].url)
     } catch (err) {
       console.log(err)
     } finally {
