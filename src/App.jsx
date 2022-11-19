@@ -66,7 +66,7 @@ function App() {
       <h2>AI Image Generator</h2>
       <textarea
         className="app-input"
-        placeholder="Oscar the Grouch Surfing Frozen Lake Van Gogh"
+        placeholder="An antique bust of a Greek philosopher wearing a VR headset, realistic, photography."
         onChange={(e) => handleChange(e)}
         rows="10"
         cols="40"
